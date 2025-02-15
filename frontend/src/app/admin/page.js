@@ -2,33 +2,51 @@
 
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-
+import { getChildInfo, updateChildInfo } from "@/services/admin";
 
 export default function Admin() {
     const [plan, setPlan] = useState({
-        dailyLimit: "2",
+        dailyRate: "2",
         cashAmount: "3",
         donationPercent: "1",
         weeklyBonus: false,
         weeklyAmount: "5",
         monthlyBonus: false,
         monthlyAmount: "5",
-    })
+        childWalletId: ""
+    });
+
+    useEffect(() => {
+        const cb = async () => {
+            let data = await getChildInfo("67b09cbbdc0eb1383838f376");
+            setPlan((prev) => ({ ...prev, dailyRate: data.dailyRate, childWalletId: data.walletId }));
+        }
+
+        cb();
+    }
+        ,
+        []
+    );
+
     const [childDetails, setchildDetails] = useState({
         childName: "Tommy",
         walletAddress: "Fakeaddress"
-    })
+    });
+
+    const [updateObj, setUpdateObj] = useState({});
 
     function updatePlan(key, value) {
         setPlan((prev) => ({ ...prev, [key]: value }));
+        setUpdateObj((prev) => ({ ...prev, dailyRate: value }))
     }
 
     function updateDetails(key, value) {
-        setchildDetails((prev) => ({ ...prev, [key]: value }));
+        setPlan((prev) => ({ ...prev, [key]: value }));
+        setUpdateObj((prev) => ({ ...prev, [key]: value }))
     }
 
 
@@ -37,18 +55,18 @@ export default function Admin() {
             <div>
                 <h1 className="text-5xl font-extrabold "> {childDetails.childName} </h1>
             </div>
-            <div id="dailyLimit">
+            <div id="dailyRate">
                 <div className="grid grid-cols-[2fr,1fr]">
                     <Separator className="mt-10 mb-5" />
                 </div>
                 <div className="grid grid-cols-3">
                     <label className="self-center">
-                        {"Daily Limit: " + plan.dailyLimit + " hours"}
+                        {"Daily Limit: " + plan.dailyRate + " hours"}
                     </label>
                     <Slider
-                        max={24}
-                        value={[plan.dailyLimit]}
-                        onValueChange={(val) => updatePlan("dailyLimit", val[0])}
+                        max={48}
+                        value={[Number(plan.dailyRate) * 2]}
+                        onValueChange={(val) => { console.log(val[0]); updatePlan("dailyRate", Number(val[0]) / 2) }}
                     />
                 </div>
             </div>
@@ -60,7 +78,12 @@ export default function Admin() {
                     <label>
                         Wallet Address
                     </label>
-                    <Input type="walletAddress" placeholder="New Wallet Address" className="w-full" value={childDetails.walletAddress} onChange={(val) => updateDetails("walletAddress", val[0])} />
+                    <Input type="walletAddress" placeholder="New Wallet Address" className="w-full" value={plan.childWalletId} onChange={(e) => {
+                        const val = e.target.value;
+                        console.log(val);
+                        console.log(updateObj);
+                        updateDetails("childWalletId", val)
+                    }} />
                 </div>
                 <div className="grid grid-cols-3">
                     <label>
@@ -110,7 +133,7 @@ export default function Admin() {
             </div >
             <div className="grid grid-cols-3 mt-10 mb-10">
                 <div> </div>
-                <Button className="bg-black text-white w-1/2" variant="outline"> Save </Button>
+                <Button className="bg-black text-white w-1/2" variant="outline" onClick={async () => (await updateChildInfo("67b09cbbdc0eb1383838f376", updateObj))}> Save </Button>
             </div>
         </div >
 
