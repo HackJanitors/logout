@@ -1,8 +1,11 @@
-const express = require('express')
+import express from 'express'
+
+import Child from "../models/child.js"
+import { getRiotTodayHours } from "../services/riotGamesService.js"
+
 const router = express.Router()
 
-const Child = require("../models/child")
-const { getRiotTodayHours } = require("../services/riotGamesService")
+
 
 router.get('/:childId', async (req, res) => {
     const childId = req.params.childId
@@ -22,4 +25,4 @@ router.get('/:childId', async (req, res) => {
 
 })
 
-module.exports = router
+export default router

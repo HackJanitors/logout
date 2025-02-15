@@ -1,7 +1,8 @@
-const { formatUrlWithQueryParams } = require("../utils")
-const axios = require('axios')
+import { formatUrlWithQueryParams } from "../utils.js"
+import axios from 'axios'
+import dotenv from 'dotenv'
 
-require("dotenv").config()
+dotenv.config()
 
 const RIOT_API_KEY = process.env.RIOT_API_KEY
 const RIOT_GAMES_URL = process.env.RIOT_GAMES_URL
@@ -20,7 +21,7 @@ const getRiotTodayHours = async (childRiotId) => {
     
     const endTime = new Date();
     endTime.setHours(23, 59, 59, 999); // End of today
-    startTime.setDate(endTime.getDate() - 3)
+    startTime.setDate(endTime.getDate() - 3) //temp fix to get certain amount of data.
 
 
     const startTimeUnix = Math.floor(startTime.getTime() / 1000);
@@ -73,4 +74,4 @@ const getRiotGamesSummary = async (childRiotId) => {
     }
 }
 
-module.exports = {getRiotTodayHours, getRiotGamesSummary}
+export {getRiotTodayHours, getRiotGamesSummary}

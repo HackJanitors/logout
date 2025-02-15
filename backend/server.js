@@ -1,13 +1,13 @@
-const express = require('express')
-const mongoose = require("mongoose")
-require('dotenv').config()
+import mongoose from 'mongoose';
+import express from 'express'
+import dotenv from 'dotenv';
+import adminRoutes from './controllers/admin.js';
+import userRouters from './controllers/user.js';
+import dashboardRoutes from './controllers/dashboard.js';
+import transactionRoutes from './controllers/transactions.js';
+import applyMiddleware from './middlewares/index.js';
 
-const adminRoutes = require('./controllers/admin')
-const userRouters = require('./controllers/user')
-const dashboardRoutes = require('./controllers/dashboard')
-const transactionRoutes = require('./controllers/transactions')
-
-const applyMiddleware = require('./middlewares')
+dotenv.config()
 
 const app = express()
 const port = '8000'

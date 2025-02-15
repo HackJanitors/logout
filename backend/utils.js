@@ -7,4 +7,4 @@ const formatUrlWithQueryParams = (url, params = {}) => {
     return urlObj.toString();
 }
 
-module.exports = { formatUrlWithQueryParams }
+export { formatUrlWithQueryParams }
