@@ -20,5 +20,10 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+  },
+  "type": "module",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022"
   }
 }
