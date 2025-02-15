@@ -17,25 +17,26 @@ export default async function Home({ params }) {
         
         console.log(child);
         console.log(hours);
-        return child.name
+        return child.name ? child.name : "Tommy"
     }
 
     async function getAchievementList() {
         return [
             {
-                imgSrc: "https://thumbs.dreamstime.com/b/happy-old-man-29232681.jpg",
-                title: "A Good Goon",
-                desc: "You gooned for 70 years straight"
+                imgSrc: "/flame.png",
+                title: "5 Day Streak",
+                desc: "Good Job!"
+            },
+            {
+                imgSrc: "/log-out.svg",
+                title: "Logged Off",
+                desc: "Clocked 0 hours of game time for a day"
             },
             {
                 imgSrc: "https://thumbs.dreamstime.com/b/happy-old-man-29232681.jpg",
-                title: "A Good Goon",
-                desc: "You gooned for 70 years straight"
-            },
-            {
-                imgSrc: "https://thumbs.dreamstime.com/b/happy-old-man-29232681.jpg",
-                title: "A Good Goon",
-                desc: "You gooned for 70 years straight"
+                className: "overflow-hidden",
+                title: "Philanthropist",
+                desc: "Donated a cumulative total of $100"
             }
         ]
     }
@@ -53,12 +54,12 @@ export default async function Home({ params }) {
                 done: false,
             },
             {
-                desc: "Goon for 80 days",
+                desc: "Draw a Portrait",
                 id: 3,
                 done: true,
             },
             {
-                desc: "Practice edging for 5 days",
+                desc: "Meditate",
                 id: 4,
                 done: false,
             }

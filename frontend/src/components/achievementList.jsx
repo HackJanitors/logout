@@ -8,9 +8,9 @@ const AchievementList = ({ achievementList }) => {
                 Achievements
             </div>
             <ul className="bento flex-col flex items-center p-4">
-                {achievementList.map(({ imgSrc, title, desc }) => (
-                    <li key={title} className="my-6">
-                        <Achievement imgSrc={imgSrc} title={title} desc={desc} />
+                {achievementList.map(({ imgSrc, title, desc, className }) => (
+                    <li key={title} className="my-6 w-full">
+                        <Achievement imgSrc={imgSrc} title={title} desc={desc} className={className} />
                     </li>
                 ))}
             </ul>
