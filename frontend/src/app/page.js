@@ -3,7 +3,7 @@ import { SignIn, SignUp, SignInButton, SignUpButton, SignedOut } from "@clerk/ne
 
 export default function Home() {
   return (
-    <div className="mt-10">
+    <div className="h-screen">
       <SignedOut>
         <div className="flex justify-around h-full w-full items-center">
           <div>
