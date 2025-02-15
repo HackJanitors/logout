@@ -8,12 +8,13 @@ import Link from "next/link";
 
 
 export default function Admin() {
-    const [userWallet, setuserWallet] = useState("FakeAddress")
+    const [userWallet, setuserWallet] = useState("")
     const [child, setChild] = useState({
-        riotId: "addict#kid",
-        username: "Tommy",
-        walletAddress: "Fakeaddress",
-        email: "addict@example.com",
+        riotId: "",
+        username: "",
+        walletAddress: "",
+        name: "",
+        email: "",
         password: ""
     })
 
@@ -35,8 +36,14 @@ export default function Admin() {
                 <Input type="text" placeholder="New Wallet Address" className="w-full" value={userWallet} onChange={(val) => setuserWallet(val[0])} />
             </div>
             <Separator className="mt-10 mb-5" />
-            <div className="font-extrabold mb-10"> Your Child's Details </div>
+            <div className="font-extrabold mb-5"> Your Child's Details </div>
             <div className="childInfo grid grid-rows-4 gap-5">
+                <div className="grid grid-cols-2">
+                    <label>
+                        Name
+                    </label>
+                    <Input type="text" placeholder="Enter your child's Name" className="w-full" value={child.name} onChange={(val) => updateChildDetails("name", val[0])} />
+                </div>
                 <div className="grid grid-cols-2">
                     <label>
                         RiotID
@@ -49,6 +56,8 @@ export default function Admin() {
                     </label>
                     <Input type="text" placeholder="Enter your child's Wallet Address" className="w-full" value={child.walletAddress} onChange={(val) => updateChildDetails("walletAddress", val[0])} />
                 </div>
+                <Separator className="mt-5 mb-5" />
+                <div className="font-extrabold mb-5"> Create Your Child's Account </div>
                 <div className="grid grid-cols-2">
                     <label>
                         Username
@@ -69,7 +78,7 @@ export default function Admin() {
                 </div>
             </div>
             <div className="mt-10 mb-10">
-                <Button className="bg-green-400 w-1/2" variant="outline" asChild>
+                <Button className="bg-black text-white w-1/2" variant="outline" asChild>
                     <Link href="/dashboard"> Next </Link>
                 </Button>
             </div>
