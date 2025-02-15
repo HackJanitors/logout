@@ -14,7 +14,7 @@ export default function Wallet() {
                 </div>
                 <div className="mt-8 text-5xl font-extrabold flex flex-row">
                     $ {walletAmount.toFixed(2)}
-                    <Button variant="outline" className="ml-auto bg-green-500 self-end"> Top-Up </Button>
+                    <Button variant="outline" className="ml-auto bg-black text-white self-end"> Top-Up </Button>
                 </div>
             </div>
         </div>
