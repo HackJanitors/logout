@@ -110,7 +110,7 @@ export default function Admin() {
             </div >
             <div className="grid grid-cols-3 mt-10 mb-10">
                 <div> </div>
-                <Button className="bg-green-400 w-1/2" variant="outline"> Save </Button>
+                <Button className="bg-black text-white w-1/2" variant="outline"> Save </Button>
             </div>
         </div >
 
