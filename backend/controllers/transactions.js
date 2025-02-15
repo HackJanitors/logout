@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post('/mock', async (req, res) => {
     const { guardianId, childId, guardianWalletId, childWalletId, riotId, goal, dailyRate, weeklyRate, monthlyRate, dailyPayment,
-        weeklyPayment, monthlyPayment } = req.body;
+        weeklyPayment, monthlyPayment, walletAddressUrl, privateKey, keyId } = req.body;
 
     const child = await Child.findById(childId);
     const today = new Date();
@@ -62,7 +62,7 @@ router.post('/mock', async (req, res) => {
 
         }
 
-        await handleTransaction(total, guardianWalletId, childWalletId)
+        await handleTransaction(total, guardianWalletId, childWalletId, walletAddressUrl, privateKey, keyId)
         res.status(201).json({
             message: "Transaction completed",
         });
