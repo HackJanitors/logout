@@ -47,22 +47,22 @@ export default async function Home({ params }) {
     async function getGoals() {
         return [
             {
-                description: "Read 5 books",
+                desc: "Read 5 books",
                 id: 1,
                 done: true,
             },
             {
-                description: "Practice soccer for 5 days",
+                desc: "Practice soccer for 5 days",
                 id: 2,
                 done: false,
             },
             {
-                description: "Goon for 80 days",
+                desc: "Goon for 80 days",
                 id: 3,
                 done: true,
             },
             {
-                description: "Practice edging for 5 days",
+                desc: "Practice edging for 5 days",
                 id: 4,
                 done: false,
             }
