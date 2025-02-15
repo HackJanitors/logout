@@ -4,11 +4,13 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
+const SERVER_SIDE_URL = process.env.SERVER_SIDE_URL;
 
 export default function Admin() {
-    const [userWallet, setuserWallet] = useState("")
+    const router = useRouter();
+    const [userWallet, setuserWallet] = useState("");
     const [child, setChild] = useState({
         riotId: "",
         username: "",
@@ -22,6 +24,33 @@ export default function Admin() {
         setChild((prev) => ({ ...prev, [key]: value }));
     }
 
+    async function handleSubmit() {
+        try {
+            console.log(SERVER_SIDE_URL);
+            const resp = await fetch("http://localhost:8000/user/guardian", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                credentials: "include",
+                body: JSON.stringify({
+                    guardianWalletId: userWallet, 
+                    childWalletId: child.walletAddress,
+                    childUsername: child.username,
+                    riotId: child.riotId, 
+                    name: child.name,
+                    email: child.email, 
+                    password: child.password
+                })
+            }).then((res) => res.json());
+            console.log(resp)
+            if(resp.message) {
+                router.push("/dashboard");
+            }
+            
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
 
     return (
         <div className="flex flex-col mt-10 ml-10 w-1/3 text-lg">
@@ -33,7 +62,7 @@ export default function Admin() {
                 <label>
                     Your Wallet Address
                 </label>
-                <Input type="text" placeholder="New Wallet Address" className="w-full" value={userWallet} onChange={(val) => setuserWallet(val[0])} />
+                <Input type="text" placeholder="Enter your Wallet Address" className="w-full" value={userWallet} onChange={(val) => setuserWallet(val[0])} />
             </div>
             <Separator className="mt-10 mb-5" />
             <div className="font-extrabold mb-5"> Your Child's Details </div>
@@ -78,8 +107,8 @@ export default function Admin() {
                 </div>
             </div>
             <div className="mt-10 mb-10">
-                <Button className="bg-black text-white w-1/2" variant="outline" asChild>
-                    <Link href="/dashboard"> Next </Link>
+                <Button className="bg-black text-white w-1/2" variant="outline" onClick={handleSubmit}>
+                     Next 
                 </Button>
             </div>
         </div >

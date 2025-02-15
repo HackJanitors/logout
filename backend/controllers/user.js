@@ -6,10 +6,9 @@ import Guardian from '../models/guardian.js'
 const router = express.Router()
 
 router.post('/guardian', async (req, res) => {
-    const { guardianUsername, guardianWalletId, childWalletId, childUsername, riotId, goal, dailyRate, weeklyRate, monthlyRate } = req.body;
-
+    const { guardianWalletId, childWalletId, childUsername, riotId, name, email, password} = req.body;
     const newGuardian = new Guardian({
-        username: guardianUsername,
+        // username: guardianUsername,
         walletId: guardianWalletId,
     });
 
@@ -20,10 +19,11 @@ router.post('/guardian', async (req, res) => {
         guardianId: savedGuardian._id,
         riotId: riotId,
         walletId: childWalletId,
-        goal: goal,
-        dailyRate: dailyRate,
-        weeklyRate: weeklyRate,
-        monthlyRate: monthlyRate,
+        name: name,
+        goal: "2",
+        dailyRate: "5",
+        weeklyRate: "5",
+        monthlyRate: "5",
     });
 
     const savedChild = await newChild.save();
