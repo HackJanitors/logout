@@ -12,7 +12,6 @@ dotenv.config()
 const SERVER_SIDE_PORT = process.env.SERVER_SIDE_PORT
 
 const app = express()
-const port = SERVER_SIDE_PORT
 
 const mongodbUsername = process.env.MONGODB_USERNAME
 const mongodbPassword = process.env.MONGODB_PASSWORD
@@ -43,8 +42,8 @@ async function startServer() {
   app.use('/user', userRouters);
   app.use('/transactions', transactionRoutes)
 
-  app.listen(port, () => {
-    console.log(`Server is listening on http://localhost:${port}`);
+  app.listen(SERVER_SIDE_PORT, () => {
+    console.log(`Server is listening on http://localhost:${SERVER_SIDE_PORT}`);
   });
 }
 
