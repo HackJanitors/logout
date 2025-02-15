@@ -37,7 +37,7 @@ router.post('/guardian', async (req, res) => {
 
 router.put('/child/:childId', async (req, res) => {
     const childId = req.params.childId
-    const { childWalletId, childUsername, riotId } = req.body;
+    const { childWalletId, childUsername, riotId, dailyRate } = req.body;
 
     const child = await Child.findById(childId).exec()
 
@@ -49,6 +49,9 @@ router.put('/child/:childId', async (req, res) => {
     }
     if (riotId) {
         child.riotId = riotId
+    }
+    if (dailyRate) {
+        child.dailyRate = dailyRate
     }
     
     const savedChild = await child.save();
