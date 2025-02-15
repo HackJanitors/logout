@@ -5,8 +5,6 @@ import { getRiotTodayHours } from "../services/riotGamesService.js"
 
 const router = express.Router()
 
-
-
 router.get('/:childId', async (req, res) => {
     const childId = req.params.childId
     const child = await Child.findById(childId).exec()
