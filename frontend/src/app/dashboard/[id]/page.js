@@ -96,10 +96,14 @@ export default async function Home({ params }) {
                 <div className="flex gap-20 mt-10">
                     <div className="flex flex-col gap-14">
                         <Playtime currentTime={currentMinutes} totalTime={totalMinutes} />
-
-                        <Goals name={name} goalList={goalList} callback={async (id) => {
+                        <Goals name={name} 
+                        goalCallback={async (id) => {
                             "use server";
                             console.log(id);
+                        }} 
+                        saveCallback={async (list) => {
+                            "use server";
+                            console.log(list);
                         }} />
                     </div>
 
