@@ -1,11 +1,13 @@
 const express = require('express')
-const applyMiddleware = require('./middlewares')
+const mongoose = require("mongoose")
+require('dotenv').config()
+
 const adminRoutes = require('./controllers/admin')
 const userRouters = require('./controllers/user')
 const dashboardRoutes = require('./controllers/dashboard')
-const mongoose = require("mongoose")
+const transactionRoutes = require('./controllers/transactions')
 
-require('dotenv').config()
+const applyMiddleware = require('./middlewares')
 
 const app = express()
 const port = '8000'
@@ -37,6 +39,7 @@ async function startServer() {
   app.use('/admin', adminRoutes);
   app.use('/dashboard', dashboardRoutes);
   app.use('/user', userRouters);
+  app.use('/transactions', transactionRoutes)
 
   app.listen(port, () => {
     console.log(`Server is listening on http://localhost:${port}`);
