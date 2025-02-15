@@ -22,3 +22,9 @@ export function formatTimeString(hours, minutes) {
         return "0 minutes";
     }
 }
+
+export function getHoursAndMinutesFromHours(hours) {
+    const mins = hours % 1;
+    const hrs = Math.floor(hours);
+    return [hrs, mins] 
+}
