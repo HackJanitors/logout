@@ -4,6 +4,7 @@ const adminRoutes = require('./controllers/admin')
 const userRouters = require('./controllers/user')
 const dashboardRoutes = require('./controllers/dashboard')
 const mongoose = require("mongoose")
+
 require('dotenv').config()
 
 const app = express()
@@ -36,10 +37,6 @@ async function startServer() {
   app.use('/admin', adminRoutes);
   app.use('/dashboard', dashboardRoutes);
   app.use('/user', userRouters);
-
-  app.get('/', (req, res) => {
-    res.send('Welcome to the API');
-  });
 
   app.listen(port, () => {
     console.log(`Server is listening on http://localhost:${port}`);
