@@ -66,14 +66,14 @@ const GoalList = ({ goalCallback, saveCallback }) => {
                                 {isEditing ? (
                                     <div className="flex gap-4">
                                         <input
-                                            className="bg-black border-2 border-white h-16 text-xl p-2"
+                                            className="bg-white border-2  h-16 text-xl p-2"
                                             type="text"
                                             value={goalObj.desc}
                                             onChange={(e) => handleItemChange(goalObj.id, e.target.value)}
                                         />
                                         <button
                                             onClick={() => handleDelete(goalObj.id)}
-                                            className="text-lg"
+                                            className="border-2 font-bold text-white bg-red-600 rounded-[16px] px-3"
                                         >
                                             Delete
                                         </button>
