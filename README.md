@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Log-Off: NextJS-based Web App for Preventing Gaming Addiction
+
+Log-Off is a NextJS web application designed to help prevent gaming addiction by allowing users to financially incentivize gamers to play fewer hours. The tech stack mainly revolves around NextJs and ShadCN UI for the frontend, Express.js for the backend and MongoDB as the noSQL database. Our app provides several useful features
+
+## Features
+
+- **User Authentication and Registration:** Users can sign up for an account through ClerkJS.
+- **User-Friendly Interface:** Easy to add money to wallets and automated transactions between guardian/child wallets upon successfully achieved goals
+- **Addiction Prevention Gamification:** Streaks of no gaming can improve financial incentives for children.
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow the prerequisites and steps below.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- React
+- NPM
+- Git and GitHub
+- RiotAPI and Interledger OpenPayments API Keys
+- Any code editor (e.g., VS Code, Brackets)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Setup Instructions
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Open your terminal.
+2. Navigate to your desired location to place this repository.
+3. Clone the repository:
+   ```sh
+   git clone git@github.com:HackJanitors/logout.git
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Running a local copy of Frontend/Backend
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Once in the repository, `cd frontend` for frontend and `cd backend` for backend
+2. Run `npm install`
+3. Duplicate `.env.example` and add relevant environment variables
+4. Run `npm run dev` in both `frontend` and `backend` folders
