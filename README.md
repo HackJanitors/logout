@@ -1,4 +1,4 @@
-# Log-Off: NextJS-based Web App for Preventing Gaming Addiction
+# Log-Off: Preventing Gaming Addiction
 
 Log-Off is a NextJS web application designed to help prevent gaming addiction by allowing users to financially incentivize gamers to play fewer hours. The tech stack mainly revolves around NextJs and ShadCN UI for the frontend, Express.js for the backend and MongoDB as the noSQL database. Our app provides several useful features
 
@@ -10,6 +10,8 @@ Log-Off is a NextJS web application designed to help prevent gaming addiction by
 
 ## Getting Started
 
+#### Prerequisites
+
 To get a local copy up and running, follow the prerequisites and steps below.
 
 - React
@@ -18,7 +20,7 @@ To get a local copy up and running, follow the prerequisites and steps below.
 - RiotAPI and Interledger OpenPayments API Keys
 - Any code editor (e.g., VS Code, Brackets)
 
-### Setup Instructions
+#### Cloning the repository
 
 1. Open your terminal.
 2. Navigate to your desired location to place this repository.
