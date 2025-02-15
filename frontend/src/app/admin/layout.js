@@ -2,8 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
-import { SignedIn, UserButton } from "@clerk/nextjs";
-
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -15,7 +13,6 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
@@ -24,7 +21,6 @@ export default function RootLayout({ children }) {
             >
                 <SidebarProvider>
                     <AppSidebar />
-
                     <main className="flex flex-row w-full">
                         {children}
                     </main>
