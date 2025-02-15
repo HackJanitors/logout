@@ -1,6 +1,3 @@
-import dotenv from "dotenv"
-dotenv.config()
-
 const SERVER_SIDE_URL = process.env.SERVER_SIDE_URL
 
 export const getDashboardInformation = async (childId) => {

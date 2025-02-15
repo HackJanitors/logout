@@ -7,6 +7,8 @@ const router = express.Router()
 
 router.get('/:childId', async (req, res) => {
     const childId = req.params.childId
+    console.log(`GET: Getting dashboard information for child with childId ${childId}`)
+    
     const child = await Child.findById(childId).exec()
     const childRiotId = child.riotId
     
