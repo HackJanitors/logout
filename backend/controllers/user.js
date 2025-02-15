@@ -4,11 +4,10 @@ const Guardian = require('../models/guardian')
 const express = require('express')
 const router = express.Router()
 
-router.post('/:guardianId', async (req, res) => {
-    const { guardianId, childId, guardianUsername, guardianWalletId, childWalletId, childUsername, riotId, goal, dailyRate, weeklyRate, monthlyRate } = req.body;
+router.post('/guardian', async (req, res) => {
+    const { guardianUsername, guardianWalletId, childWalletId, childUsername, riotId, goal, dailyRate, weeklyRate, monthlyRate } = req.body;
 
     const newGuardian = new Guardian({
-        id: guardianId,
         username: guardianUsername,
         walletId: guardianWalletId,
     });
@@ -16,7 +15,6 @@ router.post('/:guardianId', async (req, res) => {
     const savedGuardian = await newGuardian.save();
 
     const newChild = new Child({
-        id: childId,
         username: childUsername,
         guardianId: savedGuardian._id,
         riotId: riotId,
@@ -35,5 +33,29 @@ router.post('/:guardianId', async (req, res) => {
         child: savedChild
     });
 });
+
+router.put('/child/:childId', async (req, res) => {
+    const childId = req.params.childId
+    const { childWalletId, childUsername, riotId } = req.body;
+
+    const child = await Child.findById(childId).exec()
+
+    if (childWalletId) {
+        child.childWalletId = childWalletId
+    }
+    if (childUsername) {
+        child.childUsername = childUsername
+    }
+    if (riotId) {
+        child.riotId = riotId
+    }
+    
+    const savedChild = await child.save();
+
+    res.status(201).json({
+        message: "Child saved successfully",
+        child: savedChild
+    });
+})
 
 module.exports = router
