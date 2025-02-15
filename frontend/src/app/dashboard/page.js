@@ -6,22 +6,17 @@ import Playtime from "@/components/playtime";
 import Goals from "@/components/goals";
 import Achievement from "@/components/achievement";
 import AchievementList from "@/components/achievementList";
+import { getDashboardInformation } from "@/services/dashboard"; 
 
 export default async function Home({ params }) {
 
     async function getName() {
         const id = await (params).id
 
-        switch (id) {
-            case "1":
-                return "Alice";
-            case "2":
-                return "Bob";
-            case "3":
-                return "Charlie";
-            default:
-                return "Dick (Richard)";
-        }
+        const {child, hours} = await getDashboardInformation("67b09cbbdc0eb1383838f378")
+        
+        console.log(child);
+        console.log(hours);
     }
 
     async function getAchievementList() {
