@@ -2,7 +2,11 @@ import { createAuthenticatedClient } from "@interledger/open-payments";
 import readline from "readline/promises"
 import dotenv from 'dotenv';
 //import { childWalletId, dailyRate, weeklyRate, monthlyRate } from '../models/child.js';
-import guardianWalletId from '../models/guardian.js';
+//import guardianWalletId from '../models/guardian.js';
+import open from "open"; // Import the open package
+import delay from "delay"; // Introduce a delay between retries
+import crypto from 'crypto';
+
 
 
 
@@ -17,24 +21,20 @@ const keyId = process.env.KEY_ID
 
 //console.log(PRIVATE_KEY_PATH)
 
-
-const handleTransaction = async (rate, guardianWalletId, childWalletId) => {
+const handleTransaction = async (rate, guardianWalletId, childWalletId, walletAddressUrl, privateKey, keyId) => {
 
     const client = await createAuthenticatedClient({
-        walletAddressUrl: "https://ilp.interledger-test.dev/logoff",
-        privateKey: "private.key",
-        keyId: "86cfd73c-8aca-48b8-8a7f-c3d4fa7680aa",
+        // walletAddressUrl: "https://ilp.interledger-test.dev/logoff",
+        // privateKey: "private.key",
+        // keyId: "86cfd73c-8aca-48b8-8a7f-c3d4fa7680aa",
+        walletAddressUrl: walletAddressUrl,
+        privateKey: privateKey,
+        keyId: keyId,
     });
-
-    // const walletAddress = await client.walletAddress.get({
-    //     url: "https://ilp.interledger-test.dev/logoff",
-    // });
-
-    //console.log("WALLET ADDRESS:", walletAddress);
 
     //input from frontend
     const childWalletAddress = await client.walletAddress.get({
-        //url: 'https://ilp.interledger-test.dev/martinhenz1234'
+        //url: 'https://ilp.interledger-test.dev/martinhenz'
         url: childWalletId
     })
 
@@ -75,7 +75,8 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId) => {
             incomingAmount: {
                 assetCode: childWalletAddress.assetCode,
                 assetScale: childWalletAddress.assetScale,
-                value: rate,      //set value
+                value: string(rate),      //set value
+                //value: "1000"
             },
             metadata: {
                 externalRef: '#INV2022-8363828',
@@ -138,36 +139,78 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId) => {
             },
             interact: {
                 start: ['redirect'],
-                // finish: {
-                //     method: 'redirect',
-                //     uri: 'https://online-marketplace.com/complete-payment', // where to redirect the customer after the interaction is completed
-                //     //"http://localhost:8000/",
-                //     //nonce: uuid()
-                //nonce: NONCE,
-                // }
+                finish: {
+                    method: 'redirect',
+                    uri: 'https://wallet.interledger-test.dev/transactions', // where to redirect the customer after the interaction is completed
+                    //nonce: uuid()
+                    //nonce: NONCE,
+                    nonce: crypto.randomUUID()
+                }
             }
         }
     )
 
+    //console.log("Redirecting to grant approval page...");
     console.log(outgoingPaymentGrant)
 
-    await readline
-        .createInterface({
-            input: process.stdin,
-            output: process.stdout,
-        })
-        .question("Please accept grant and press enter...")
+    await open(outgoingPaymentGrant.interact.redirect);
+
+    // await readline
+    //     .createInterface({
+    //         input: process.stdin,
+    //         output: process.stdout,
+    //     })
+    //     .question("Please accept grant and press enter...")
+
+
+    // Poll for user approval
+    const pollForGrantApproval = async (outgoingPaymentGrant) => {
+        let attempt = 1;
+        while (true) {
+            console.log(`Checking if the grant has been approved (Attempt ${attempt})...`);
+            try {
+                let finalizedGrant = await client.grant.continue({
+                    url: outgoingPaymentGrant.continue.uri,
+                    accessToken: outgoingPaymentGrant.continue.access_token.value,
+                });
+
+                // If grant still has 'continue', wait and retry
+                if (!finalizedGrant.access_token) {
+                    console.log("Grant still requires continuation. Waiting...");
+                    await new Promise(resolve => setTimeout(resolve, finalizedGrant.continue.wait * 1000));
+                    outgoingPaymentGrant = finalizedGrant;  // Update grant and retry
+                } else {
+                    console.log("Grant approved and finalized!");
+                    return finalizedGrant;  // Successfully finalized
+                }
+            } catch (error) {
+                if (error.code === 'too_fast') {
+                    const waitTime = outgoingPaymentGrant.continue.wait * 1000;
+                    console.log(`Too fast. Waiting ${outgoingPaymentGrant.continue.wait} seconds before retrying...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                } else {
+                    throw error;
+                }
+            }
+            attempt++;
+        }
+    };
+
+    // Wait for grant approval
+    const finalizedOutgoingPaymentGrant = await pollForGrantApproval(outgoingPaymentGrant);
+
+
 
     // //guardian approves --> redirected to url in outgoing payment grant --> finalize payment grant
-    const finalizedOutgoingPaymentGrant = await client.grant.continue(
-        {
-            url: outgoingPaymentGrant.continue.uri,
-            accessToken: outgoingPaymentGrant.continue.access_token.value,
-        },
-        //{ interact_ref: INTERACT_REF_FROM_URL }
-    )
+    // const finalizedOutgoingPaymentGrant = await client.grant.continue(
+    //     {
+    //         url: outgoingPaymentGrant.continue.uri,
+    //         accessToken: outgoingPaymentGrant.continue.access_token.value,
+    //     },
+    //     //{ interact_ref: INTERACT_REF_FROM_URL }
+    // )
 
-    console.log(finalizedOutgoingPaymentGrant)
+    //console.log(finalizedOutgoingPaymentGrant)
 
     // //guardian approves --> child can create, execute outgoing payment to guaridan
     const outgoingPayment = await client.outgoingPayment.create(
@@ -183,7 +226,7 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId) => {
         }
     )
 
-    console.log(outgoingPayment)
+    //console.log(outgoingPayment)
 
 }
 
