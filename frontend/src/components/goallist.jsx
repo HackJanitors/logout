@@ -88,11 +88,11 @@ const GoalList = ({ goalCallback, saveCallback }) => {
             </ul>
 
             <div className="mt-10 flex gap-4">
-                <button className="border-2 font-bold text-black bg-white border-white text-xl rounded-[16px] px-4 py-2" onClick={isEditing ? handleAddItem : toggleEdit}>
+                <button className="border-2 font-bold text-white bg-black text-xl rounded-[16px] px-4 py-2" onClick={isEditing ? handleAddItem : toggleEdit}>
                     {isEditing ? "Add Item" : "Edit Goals"}
                 </button>
 
-                <button className="border-2 font-bold text-black bg-white border-white text-xl rounded-[16px] px-4 py-2" onClick={isEditing ? toggleEdit : () => saveCallback(currentGoalList)}>
+                <button className="border-2 font-bold text-white bg-black text-xl rounded-[16px] px-4 py-2" onClick={isEditing ? toggleEdit : () => saveCallback(currentGoalList)}>
                     {isEditing ? "Save" : "Save Progress"}
                 </button>
             </div>

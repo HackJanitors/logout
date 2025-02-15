@@ -1,7 +1,8 @@
-const Child = require('../models/child')
-const Day = require('../models/day')
+import Child from '../models/child.js'
+import Day from '../models/day.js'
 
-const express = require('express')
+import express from 'express'
+
 const router = express.Router()
 
 router.post('/mock', async (req, res) => {
@@ -62,4 +63,4 @@ router.post('/mock', async (req, res) => {
     }
 });
 
-module.exports = router
+export default router
