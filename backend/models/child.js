@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
 const childSchema = new Schema({
-    Id: String,
+    id: String,
     username: String,
     guardianId: String,
     riotId: String,
