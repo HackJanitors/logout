@@ -1,5 +1,5 @@
 const express = require('express')
-const { default: applyMiddleware } = require('./middlewares')
+const applyMiddleware = require('./middlewares')
 const adminRoutes = require('./controllers/admin')
 const userRouters = require('./controllers/user')
 const dashboardRoutes = require('./controllers/dashboard')

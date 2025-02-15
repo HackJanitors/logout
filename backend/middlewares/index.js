@@ -2,7 +2,7 @@ const cors = require("cors")
 const express = require("express")
 require('dotenv').config()
 
-const CLIENT_SIDE_URL = process.env('../../.env')
+const CLIENT_SIDE_URL = process.env.CLIENT_SIDE_URL
 
 const applyMiddleware = (app) => {
     app.use(cors({
@@ -14,4 +14,4 @@ const applyMiddleware = (app) => {
     app.use(express.json())
 }
 
-export default applyMiddleware
+module.exports = applyMiddleware

@@ -1,4 +1,4 @@
-import Child from '../models/child'
+const Child = require('../models/child')
 //import Guardian from '../models/guardian'
 
 const express = require('express')
@@ -12,4 +12,4 @@ router.get('/admin/:childId', async (req, res) => {
 
 })
 
-export default router
+module.exports = router

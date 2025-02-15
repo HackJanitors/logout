@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const childSchema = new Schema({
@@ -14,4 +14,5 @@ const childSchema = new Schema({
 });
 
 const Child = model('Child', childSchema);
-export default Child;
+
+module.exports = Child;

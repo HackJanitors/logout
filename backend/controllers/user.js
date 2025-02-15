@@ -1,5 +1,5 @@
-import Child from '../models/child'
-import Guardian from '../models/guardian'
+const Child = require('../models/child')
+const Guardian = require('../models/guardian')
 
 const express = require('express')
 const router = express.Router()
@@ -36,4 +36,4 @@ router.post('/:guardianId', async (req, res) => {
     });
 });
 
-export default router
+module.exports = router
