@@ -9,8 +9,10 @@ import applyMiddleware from './middlewares/index.js';
 
 dotenv.config()
 
+const SERVER_SIDE_PORT = process.env.SERVER_SIDE_PORT
+
 const app = express()
-const port = '8000'
+const port = SERVER_SIDE_PORT
 
 const mongodbUsername = process.env.MONGODB_USERNAME
 const mongodbPassword = process.env.MONGODB_PASSWORD
