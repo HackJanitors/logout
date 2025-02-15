@@ -1,12 +1,12 @@
-const Child = require("../models/child")
-const { getRiotTodayHours } = require("../services/riotGamesService")
-
 const express = require('express')
 const router = express.Router()
 
+const Child = require("../models/child")
+const { getRiotTodayHours } = require("../services/riotGamesService")
+
 router.get('/:childId', async (req, res) => {
-    const childId = req.params.id
-    const child = await Child.findById(childId)
+    const childId = req.params.childId
+    const child = await Child.findById(childId).exec()
     const childRiotId = child.riotId
     
     if  (!childRiotId) {

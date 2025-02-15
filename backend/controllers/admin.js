@@ -1,14 +1,14 @@
 const Child = require('../models/child')
 const Guardian = require('../models/guardian')
 const express = require('express')
+
 const router = express.Router()
 
 router.get('/:guardianId', async (req, res) => {
-    const guardianId = req.params.guardianId
-    const guardian = await Guardian.findById(guardianId)
+    const guardian = await Guardian.findById(guardianId).exec()
 
     //find child
-    const child = await Child.findById(guardian.childId);
+    const child = await Child.findOne({guardianId: guardian._id}).exec()
     res.send(child)
 })
 
@@ -34,7 +34,7 @@ router.put('/:guardianId', async (req, res) => {
         guardianId,
         updateData,
         { new: true, runValidators: true }
-    );
+    ).exec();
 
     res.send(updatedGuardian)
 })

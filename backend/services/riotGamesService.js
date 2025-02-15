@@ -1,4 +1,5 @@
 const { formatUrlWithQueryParams } = require("../utils")
+const fetch = require("node-fetch")
 
 require("dotenv").config()
 
@@ -7,14 +8,14 @@ const RIOT_GAMES_URL = process.env.RIOT_GAMES_URL
 
 const getRiotTodayHours = async (childRiotId) => {
     const [gameName, tagLine] = childRiotId.split("#")
-    const puuid = await fetch(
-        formatUrlWithQueryParams(
-            RIOT_GAMES_URL + `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`, 
-            {
-                "apiKey": RIOT_API_KEY
-            }
-        )
-    ).then(response => response.json().puuid)
+    const uri = formatUrlWithQueryParams(
+        RIOT_GAMES_URL + `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`, 
+        {
+            "api_key": RIOT_API_KEY
+        }
+    )
+    console.log(`Fetching from ${uri}`)
+    const puuid = await fetch(uri).then(response => response.json().puuid)
   
     const startTime = new Date();
     startTime.setHours(0, 0, 0, 0); // Start of today
@@ -38,7 +39,8 @@ const getRiotTodayHours = async (childRiotId) => {
         );
 
         if (!matchIdsResponse.ok) {
-            throw new Error('Failed to fetch match IDs from Riot Games API');
+            const errorMessage = await matchIdsResponse.text();
+            throw new Error(`Failed to fetch match IDs from Riot Games API: ${errorMessage}`);
         }
 
         const matchIds = await matchIdsResponse.json();
