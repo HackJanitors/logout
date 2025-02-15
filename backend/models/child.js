@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const childSchema = new Schema({
-    id: String,
     username: String,
     guardianId: String,
     riotId: String,

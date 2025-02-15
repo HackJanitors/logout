@@ -10,6 +10,7 @@ router.post('/mock', async (req, res) => {
 
     const child = await Child.findById(childId);
     const today = new Date();
+
     const newDay = new Day({
         childId,
         date: today,
