@@ -1,6 +1,6 @@
 # Log-Off: Gaming Addiction Prevention Web App
 
-Log-Off is a NextJS web application designed to help prevent gaming addiction by allowing users to financially incentivize gamers to play fewer hours. The tech stack mainly revolves around NextJs and ShadCN UI for the frontend, Express.js for the backend and MongoDB as the noSQL database. Our app provides several useful features
+Log-Off is a smart web app designed to help prevent gaming addiction by turning reduced screen time into a rewarding challenge. It allows guardians to set financial incentives for gamers to play fewer hours, with automated wallet transactions when goals are met. The app also introduces streak-based rewards, where maintaining a controlled-gaming streak boosts financial incentives, making self-control more engaging. With a simple and user-friendly interface, Log-Off makes it easy to track progress, manage rewards, and encourage healthier gaming habits in a fun and motivating way!
 
 ## Features
 
