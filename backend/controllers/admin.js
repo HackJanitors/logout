@@ -5,38 +5,35 @@ import express from 'express';
 const router = express.Router()
 
 router.get('/:guardianId', async (req, res) => {
-    const guardian = await Guardian.findById(guardianId).exec()
+    const guardian = await Guardian.findById(req.params.guardianId).exec()
 
     //find child
-    const child = await Child.findOne({guardianId: guardian._id}).exec()
+    const child = await Child.findOne({"guardianId": guardian._id}).exec()
     res.send(child)
 })
 
-// app.delete('/:guardianId', async (req, res) => {
-//     const guardianId = req.params.guardianId;
-//     const guardian = await Guardian.findById(guardianId);
-
-//     if (!guardian) {
-//         return res.status(404).json({ message: "Guardian not found" });
-//     }
-
-//     await Guardian.findByIdAndDelete(guardianId);
-// })
-
-
 //update
 router.put('/:guardianId', async (req, res) => {
-    const guardianId = req.params.guardianId;
-    //const guardian = await Guardian.findById(guardianId);
-    const updateData = req.body;
+    console.log("this is for the put");
+    const guardian = await Guardian.findById(req.params.guardianId).exec()
 
-    const updatedGuardian = await Guardian.findByIdAndUpdate(
-        guardianId,
-        updateData,
-        { new: true, runValidators: true }
-    ).exec();
+    //find child
+    const child = await Child.findOne({ "guardianId": guardian._id }).exec()
 
-    res.send(updatedGuardian)
+    const { childWalletId, dailyRate } = req.body;
+    if (childWalletId) {
+        child["walletId"] = childWalletId
+    }
+    if (dailyRate) {
+        child["dailyRate"] = dailyRate
+    }
+
+    const savedChild = await child.save();
+
+    res.status(201).json({
+        message: "Child saved successfully",
+        child: savedChild,
+    });
 })
 
 export default router
