@@ -61,7 +61,7 @@ const getRiotTodayHours = async (childRiotId) => {
         return totalGameDurationHours;
     } catch (e) {
         console.log(`Failed to get matches from Riot API with error: ${e}`)
-        throw error
+        throw e
     }
 }
 
