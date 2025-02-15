@@ -16,18 +16,20 @@ const uri = `mongodb+srv://${mongodbUsername}:${mongodbPassword}@logoff.dsoac.mo
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
 async function connectToMongoDB() {
-    try {
-        // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
-        await mongoose.connect(uri, clientOptions);
-        await mongoose.connection.db.admin().command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    } catch (error) {
-        console.log("Failed to connect to MongoDB", error)
-    }
+    await mongoose.connect(uri, clientOptions);
+    await mongoose.connection.db.admin().command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  
 }
 async function startServer() {
   // Connect to the database
-  await connectToMongoDB();
+  try {
+    await connectToMongoDB();
+  } catch {
+    console.log("Failed to connect to mongo db")
+    return
+  }
+  
 
   applyMiddleware(app);
 
