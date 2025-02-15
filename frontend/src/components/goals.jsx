@@ -1,7 +1,7 @@
 import React from 'react';
 import GoalList from './goallist';
 
-const Goals = ({ name, callback }) => {
+const Goals = ({ name, goalCallback, saveCallback }) => {
 
     return (
         <div className="">
@@ -12,7 +12,7 @@ const Goals = ({ name, callback }) => {
                 <div className="text-2xl mb-10">
                     Instead of playing games, I will...
                 </div>
-                <GoalList callback={callback}/>
+                <GoalList goalCallback={goalCallback} saveCallback={saveCallback}/>
             </div>
 
         </div>
