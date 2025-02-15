@@ -18,14 +18,9 @@ const GoalList = ({ goalCallback, saveCallback }) => {
                 done: false,
             },
             {
-                desc: "Goon for 80 days",
+                desc: "Meditate when I get angry",
                 id: 3,
                 done: true,
-            },
-            {
-                desc: "Practice edging for 5 days",
-                id: 4,
-                done: false,
             }
         ]
     }

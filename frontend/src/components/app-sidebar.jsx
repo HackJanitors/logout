@@ -35,15 +35,15 @@ export function AppSidebar() {
         <Sidebar>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>LogOff</SidebarGroupLabel>
+                    {/* <SidebarGroupLabel>LogOff</SidebarGroupLabel> */}
                     <SidebarGroupContent>
-                        <SidebarMenu>
+                        <SidebarMenu className="flex w-full py-24 pl-4">
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
-                                        <a href={item.url}>
+                                        <a href={item.url} className="my-3">
                                             <item.icon />
-                                            <span>{item.title}</span>
+                                            <span className="text-xl">{item.title}</span>
                                         </a>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
