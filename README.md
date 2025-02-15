@@ -10,9 +10,9 @@ Log-Off is a NextJS web application designed to help prevent gaming addiction by
 
 ## Getting Started
 
-#### Prerequisites
-
 To get a local copy up and running, follow the prerequisites and steps below.
+
+#### Prerequisites
 
 - React
 - NPM
