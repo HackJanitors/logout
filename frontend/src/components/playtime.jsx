@@ -4,10 +4,13 @@ import { getMinutesFromHours, getHoursAndMinutesFromMinutes, formatTimeString } 
 
 const Playtime = ({ currentTime, totalTime }) => {
     const leftTime = totalTime - currentTime;
+    const exceededTime = currentTime - totalTime;
     const timePercentage = 100 - Math.floor(100 * currentTime / totalTime);
     const [totalHours, totalMinutes] = getHoursAndMinutesFromMinutes(totalTime);
     const [currentHours, currentMinutes] = getHoursAndMinutesFromMinutes(currentTime);
     const [leftHours, leftMinutes] = getHoursAndMinutesFromMinutes(leftTime);
+    const [exceededHours, exceededMinutes] = getHoursAndMinutesFromMinutes(exceededTime);
+
 
     return (
         <div className="bento flex flex-col gap-8 py-12 px-20">
@@ -19,13 +22,26 @@ const Playtime = ({ currentTime, totalTime }) => {
                 <Progress value={timePercentage} className="h-10 rounded-xl" />
 
                 <div className="text-2xl font-bold">
-                    {timePercentage}%
+                    {leftTime > 0 ? timePercentage : 0}%
                 </div>
             </div>
-
-            <div className="text-2xl">
-                You've played {formatTimeString(currentHours, currentMinutes)} out of {formatTimeString(totalHours, totalMinutes)}.
+            <div className="text-2xl w-[600px]">
+                {
+                    leftTime > 0
+                        ?
+                        <>
+                            You played <b> {formatTimeString(currentHours, currentMinutes)} </b>
+                            out of <b> {formatTimeString(totalHours, totalMinutes)} </b>
+                        </>
+                        :
+                        <>
+                            You exceeded your limit of <b> {formatTimeString(totalHours, totalMinutes)} </b>
+                            by <b> {formatTimeString(exceededHours, exceededMinutes)} </b>
+                        </>
+                }
             </div>
+
+
         </div>
     );
 };
