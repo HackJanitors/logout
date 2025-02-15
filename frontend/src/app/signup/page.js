@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 
-const SERVER_SIDE_URL = process.env.SERVER_SIDE_URL;
+const SERVER_SIDE_URL = process.env.NEXT_PUBLIC_SERVER_SIDE_URL;
 
 export default function Admin() {
     const router = useRouter();
@@ -27,7 +27,7 @@ export default function Admin() {
     async function handleSubmit() {
         try {
             console.log(SERVER_SIDE_URL);
-            const resp = await fetch("http://localhost:8000/user/guardian", {
+            const resp = await fetch(SERVER_SIDE_URL+ "/user/guardian", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",
