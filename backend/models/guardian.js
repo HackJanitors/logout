@@ -1,8 +1,5 @@
-// const mongoose = require('mongoose');
 
-// const { Schema, model } = mongoose;
 import { Schema, model } from 'mongoose';
-
 
 const guardianSchema = new Schema({
   username: String,
@@ -12,5 +9,4 @@ const guardianSchema = new Schema({
 });
 const Guardian = model('Guardian', guardianSchema);
 
-export default Guardian;
-//module.exports = Guardian;
+export default Guardian
