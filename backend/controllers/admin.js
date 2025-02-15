@@ -2,9 +2,9 @@ import Child from '../models/child'
 import Guardian from '../models/guardian'
 
 const express = require('express')
-const app = express()
+const router = express.Router()
 
-app.get('/admin/:guardianId', async (req, res) => {
+router.get('/:guardianId', async (req, res) => {
     const guardianId = req.params.guardianId
     const guardian = await Guardian.findById(guardianId)
 
@@ -13,8 +13,7 @@ app.get('/admin/:guardianId', async (req, res) => {
     res.send(child)
 })
 
-// //delete
-// app.delete('/admin/:guardianId', async (req, res) => {
+// app.delete('/:guardianId', async (req, res) => {
 //     const guardianId = req.params.guardianId;
 //     const guardian = await Guardian.findById(guardianId);
 
@@ -27,7 +26,7 @@ app.get('/admin/:guardianId', async (req, res) => {
 
 
 //update
-app.put('/admin/:guardianId', async (req, res) => {
+router.put('/:guardianId', async (req, res) => {
     const guardianId = req.params.guardianId;
     //const guardian = await Guardian.findById(guardianId);
     const updateData = req.body;
@@ -40,3 +39,5 @@ app.put('/admin/:guardianId', async (req, res) => {
 
     res.send(updatedGuardian)
 })
+
+export default router

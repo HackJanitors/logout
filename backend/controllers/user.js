@@ -2,10 +2,9 @@ import Child from '../models/child'
 import Guardian from '../models/guardian'
 
 const express = require('express')
-const app = express()
+const router = express.Router()
 
-
-app.post('/admin/:guardianId', async (req, res) => {
+router.post('/:guardianId', async (req, res) => {
     const { guardianId, childId, guardianUsername, guardianWalletId, childWalletId, childUsername, riotId, goal, dailyRate, weeklyRate, monthlyRate } = req.body;
 
     const newGuardian = new Guardian({
@@ -37,3 +36,4 @@ app.post('/admin/:guardianId', async (req, res) => {
     });
 });
 
+export default router
