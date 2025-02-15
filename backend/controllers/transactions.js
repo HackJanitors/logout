@@ -2,6 +2,7 @@ import Child from '../models/child.js'
 import Day from '../models/day.js'
 import express from 'express'
 import handleTransaction from '../services/wallet.js'
+import io from '../server.js'
 
 const router = express.Router()
 
@@ -63,6 +64,11 @@ router.post('/mock', async (req, res) => {
         }
 
         await handleTransaction(total, guardianWalletId, childWalletId)
+
+        io.emit(
+            'addWalletEnumeration', total
+        )
+
         res.status(201).json({
             message: "Transaction completed",
         });

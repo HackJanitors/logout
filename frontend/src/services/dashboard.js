@@ -1,4 +1,4 @@
-const SERVER_SIDE_URL = process.env.SERVER_SIDE_URL
+const SERVER_SIDE_URL = process.env.NEXT_PUBLIC_SERVER_SIDE_URL
 
 export const getDashboardInformation = async (childId) => {
     const data = await fetch(SERVER_SIDE_URL + `/dashboard/${childId}`, {

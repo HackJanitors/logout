@@ -1,5 +1,7 @@
+"use client"
+
 import Namecard from "@/components/namecard";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress"
 import Wallet from "@/components/wallet";
 import Playtime from "@/components/playtime";
@@ -8,31 +10,16 @@ import Achievement from "@/components/achievement";
 import AchievementList from "@/components/achievementList";
 import { getDashboardInformation } from "@/services/dashboard"; 
 import { getHoursAndMinutesFromHours, formatTimeString, getMinutesFromHours } from "@/lib/timeFormatter";
+import { socket } from "@/socket";
 
-export default async function Home({ params }) {
+export default function Home({ params }) {
 
-    async function getInfo() {
-        const id = (await params).id
-
-        const {child, hours} = await getDashboardInformation("67b09cbbdc0eb1383838f378")
-        return {child, hours}
-    }
-
-    let info = await getInfo();
-
-    async function getName() {
-        const id = await (params).id
-
-        const {child, hours} = await getDashboardInformation("67b09cbbdc0eb1383838f378")
-        
-        console.log(child);
-        console.log(hours);
-        return child.name ? child.name : "Tommy"
-    }
-
-    async function getAchievementList() {
-        return [
-            {
+    const [isLoading, setIsLoading] = useState(true)
+    const [name, setName] = useState("")
+    const [currentEarnings, setCurrentEarnings] = useState(100)
+    const [currentMinutes, setCurrentMinutes] = useState(0)
+    const [totalMinutes, setTotalMinutes] = useState(0)
+    const [achievementList, setAchievementList] = useState([{
                 imgSrc: "/flame.png",
                 title: "5 Day Streak",
                 desc: "Good Job!"
@@ -47,12 +34,8 @@ export default async function Home({ params }) {
                 className: "overflow-hidden",
                 title: "Philanthropist",
                 desc: "Donated a cumulative total of $100"
-            }
-        ]
-    }
-
-    async function getGoals() {
-        return [
+            }])
+    const [goalList, setGoalList] = useState([
             {
                 desc: "Read 5 books",
                 id: 1,
@@ -73,43 +56,46 @@ export default async function Home({ params }) {
                 id: 4,
                 done: false,
             }
-        ]
-    }
-    const goalList = await getGoals();
+        ])
 
-    async function getCurrentEarnings() {
-        return 100;
-    }
+    useEffect(() => {
+        const getInfo = async () => {
+            try {
+                const {child, hours} = await getDashboardInformation("67b09cbbdc0eb1383838f378")
+                setName(child?.username ? child.username : "")
+                setCurrentMinutes(getMinutesFromHours(hours))
+                setTotalMinutes(getMinutesFromHours(Number(child?.dailyRate)))
+                setIsLoading(false)
+            } catch (_) {
+                setName("Tommy")
+                setCurrentMinutes(getMinutesFromHours(10))
+                setTotalMinutes(getMinutesFromHours(Number(12)))
+                setIsLoading(false)
+            }
+        }
+        
+        getInfo()
+    }, [setName])
 
-    async function getCurrentMinutes() {
-        return getMinutesFromHours(info.hours);
-    }
-
-    async function getTotalMinutes() {
-        return getMinutesFromHours(Number(info.child.dailyRate));
-    }
-
-    const name = await getName();
-    const currentEarnings = await getCurrentEarnings();
-    const currentMinutes = await getCurrentMinutes();
-    const totalMinutes = await getTotalMinutes();
-    const achievementList = await getAchievementList();
+    useEffect(() => {
+        socket.on("addWalletEnumeration", (total) => {
+            setCurrentEarnings(currentEarnings + total)
+        })
+    })
 
     return (
         <>
             <div className="ml-10 m-10">
-                <Namecard name={name} />
+                <Namecard name={name} isLoading={isLoading}/>
                 
                 <div className="flex gap-20 mt-10">
                     <div className="flex flex-col gap-14">
-                        <Playtime currentTime={currentMinutes} totalTime={totalMinutes} />
+                        <Playtime currentTime={currentMinutes} totalTime={totalMinutes} isLoading={isLoading} />
                         <Goals name={name} 
                         goalCallback={async (id) => {
-                            "use server";
                             console.log(id);
                         }} 
                         saveCallback={async (list) => {
-                            "use server";
                             console.log(list);
                         }} />
                     </div>
