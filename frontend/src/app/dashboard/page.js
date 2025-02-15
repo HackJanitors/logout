@@ -17,6 +17,7 @@ export default async function Home({ params }) {
         
         console.log(child);
         console.log(hours);
+        return child.name
     }
 
     async function getAchievementList() {
