@@ -7,16 +7,25 @@ import Goals from "@/components/goals";
 import Achievement from "@/components/achievement";
 import AchievementList from "@/components/achievementList";
 import { getDashboardInformation } from "@/services/dashboard"; 
+import { getHoursAndMinutesFromHours, formatTimeString, getMinutesFromHours } from "@/lib/timeFormatter";
 
 export default async function Home({ params }) {
+
+    async function getInfo() {
+        const id = (await params).id
+
+        const {child, hours} = await getDashboardInformation("67b09cbbdc0eb1383838f378")
+        return {child, hours}
+    }
+
+    let info = await getInfo();
 
     async function getName() {
         const id = await (params).id
 
         const {child, hours} = await getDashboardInformation("67b09cbbdc0eb1383838f378")
         
-        console.log(child);
-        console.log(hours);
+        return "Tommy"
     }
 
     async function getAchievementList() {
@@ -70,11 +79,11 @@ export default async function Home({ params }) {
     }
 
     async function getCurrentMinutes() {
-        return 2;
+        return getMinutesFromHours(info.hours);
     }
 
     async function getTotalMinutes() {
-        return 30;
+        return getMinutesFromHours(Number(info.child.dailyRate));
     }
 
     const name = await getName();
@@ -87,7 +96,7 @@ export default async function Home({ params }) {
         <>
             <div className="ml-10 m-10">
                 <Namecard name={name} />
-
+                
                 <div className="flex gap-20 mt-10">
                     <div className="flex flex-col gap-14">
                         <Playtime currentTime={currentMinutes} totalTime={totalMinutes} />
