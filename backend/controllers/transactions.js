@@ -1,7 +1,7 @@
 import Child from '../models/child.js'
 import Day from '../models/day.js'
-
 import express from 'express'
+import handleTransaction from '../services/wallet.js'
 
 const router = express.Router()
 
@@ -11,6 +11,7 @@ router.post('/mock', async (req, res) => {
 
     const child = await Child.findById(childId);
     const today = new Date();
+    let total = 0;
 
     const newDay = new Day({
         childId,
@@ -24,6 +25,8 @@ router.post('/mock', async (req, res) => {
 
     if (newDay.hours < child.goal) {
         newDay.dailyPayment = true
+        total += dailyPayment
+        //await handleTransaction(dailyPayment, guardianWalletId, childWalletId)
         //maketransaction(guardianWalletId, childWalletId, dailyRate)
 
         const last6Days = await Day.find({
@@ -41,6 +44,9 @@ router.post('/mock', async (req, res) => {
                 { childId, date: { $gte: new Date(today.setDate(today.getDate() - 6)) } },
                 { $set: { weeklyPayment: true } }
             );
+            //await handleTransaction(weeklyPayment, guardianWalletId, childWalletId)
+            total += weeklyPayment
+
             //maketransaction(guardianWalletId, childWalletId, weeklyRate)
         }
 
@@ -49,9 +55,14 @@ router.post('/mock', async (req, res) => {
                 { childId, date: { $gte: new Date(today.setDate(today.getDate() - 30)) } },
                 { $set: { monehtlyPayment: true } }
             );
+            total += monthlyPayment
+            //await handleTransaction(monthlyPayment, guardianWalletId, childWalletId)
+
             //maketransaction(guardianWalletId, childWalletId, monthlyRate)
 
         }
+
+        await handleTransaction(total, guardianWalletId, childWalletId)
         res.status(201).json({
             message: "Transaction completed",
         });
