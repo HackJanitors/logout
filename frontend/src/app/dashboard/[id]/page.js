@@ -12,7 +12,7 @@ export default async function Home({ params }) {
     async function getName() {
         const id = await (params).id
 
-        switch (params.id) {
+        switch (id) {
             case "1":
                 return "Alice";
             case "2":
