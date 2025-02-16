@@ -9,8 +9,10 @@ import Goals from "@/components/goals";
 import Achievement from "@/components/achievement";
 import AchievementList from "@/components/achievementList";
 import { getDashboardInformation } from "@/services/dashboard"; 
+import { runMockTransaction } from "@/services/transaction"
 import { getHoursAndMinutesFromHours, formatTimeString, getMinutesFromHours } from "@/lib/timeFormatter";
 import { socket } from "@/socket";
+import { Button } from "@/components/ui/button";
 
 export default function Home({ params }) {
 
@@ -86,8 +88,10 @@ export default function Home({ params }) {
     return (
         <>
             <div className="ml-10 m-10">
-                <Namecard name={name} isLoading={isLoading}/>
-                
+                <div className="flex flex-row gap-3 justify-between">
+                    <Namecard name={name} isLoading={isLoading}/>
+                    <Button onClick={runMockTransaction}><div className="font-bold">Approve Transaction</div></Button>
+                </div>
                 <div className="flex gap-20 mt-10">
                     <div className="flex flex-col gap-14">
                         <Playtime currentTime={currentMinutes} totalTime={totalMinutes} isLoading={isLoading} />
