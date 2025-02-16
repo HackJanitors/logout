@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SignIn, SignUp, SignInButton, SignUpButton, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -24,9 +25,14 @@ export default function Home() {
               <SignInButton>
                 <button className="border-2 font-semibold tracking-wide text-white bg-black text-2xl rounded-[16px] px-6 py-3">Sign In</button>
               </SignInButton>
-              <SignUpButton>
+              <button className="border-2 font-semibold tracking-wide text-white bg-black text-2xl rounded-[16px] px-6 py-3"> 
+                <Link href="/signup"> 
+                    Sign Up 
+                </Link>
+              </button>
+              {/* <SignUpButton>
                 <button className="border-2 font-semibold tracking-wide text-white bg-black text-2xl rounded-[16px] px-6 py-3">Sign Up</button>
-              </SignUpButton>
+              </SignUpButton> */}
             </div>
           </div>
         </div>
