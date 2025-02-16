@@ -19,13 +19,13 @@ const Playtime = ({ currentTime, totalTime, isLoading }) => {
     getHoursAndMinutesFromMinutes(exceededTime);
 
   return (
-    <div className="bento flex flex-col gap-8 py-12 px-20">
+    <div className="w-full bento flex justify-center items-center py-12 px-20">
       {isLoading ? (
         <Skeleton className="w-[500px] h-[100px] rounded-md" />
       ) : (
-        <>
+        <div className="flex flex-col gap-8">
           <div className="text-2xl">
-            You have {formatTimeString(leftHours, leftMinutes)} remaining.
+            You have <b>{formatTimeString(leftHours, leftMinutes)}</b> remaining.
           </div>
           <div className="flex flex-between items-center gap-3">
             <Progress value={timePercentage} className="h-10 rounded-xl" />
@@ -48,7 +48,7 @@ const Playtime = ({ currentTime, totalTime, isLoading }) => {
               </>
             )}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

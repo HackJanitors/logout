@@ -1,4 +1,3 @@
-
 import { Schema, model } from 'mongoose';
 
 const guardianSchema = new Schema({
@@ -9,4 +8,4 @@ const guardianSchema = new Schema({
 });
 const Guardian = model('Guardian', guardianSchema);
 
-export default Guardian
+export default Guardian;
