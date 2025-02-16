@@ -1,7 +1,7 @@
 "use client"
 
 import Namecard from "@/components/namecard";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useAsyncFn } from "react";
 import { Progress } from "@/components/ui/progress"
 import Wallet from "@/components/wallet";
 import Playtime from "@/components/playtime";
@@ -9,7 +9,7 @@ import Goals from "@/components/goals";
 import Achievement from "@/components/achievement";
 import AchievementList from "@/components/achievementList";
 import { getDashboardInformation } from "@/services/dashboard"; 
-import { runMockTransaction } from "@/services/transaction"
+import { runMockTransaction as _runMockTransaction } from "@/services/transaction"
 import { getHoursAndMinutesFromHours, formatTimeString, getMinutesFromHours } from "@/lib/timeFormatter";
 import { socket } from "@/socket";
 import { Button } from "@/components/ui/button";
@@ -85,12 +85,14 @@ export default function Home({ params }) {
         })
     })
 
+    const [ {isLoading: isButtonLoading }, runMockTransaction ] = useAsyncFn(_runMockTransaction, [_runMockTransaction])
+
     return (
         <>
             <div className="ml-10 m-10">
                 <div className="flex flex-row gap-3 justify-between">
                     <Namecard name={name} isLoading={isLoading}/>
-                    <Button onClick={runMockTransaction}><div className="font-bold">Approve Transaction</div></Button>
+                    <Button disabled={isButtonLoading} onClick={runMockTransaction}><div className="font-bold">Approve Transaction</div></Button>
                 </div>
                 <div className="flex gap-20 mt-10">
                     <div className="flex flex-col gap-14">
