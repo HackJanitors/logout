@@ -52,12 +52,12 @@ const GoalList = ({ goalCallback, saveCallback }) => {
 
 
     return (
-        <div>
+        <div key="1234">
             <ul key={"abcd"}>
                 {
                     currentGoalList.map((goalObj) => {
                         return (
-                            <li key={goalObj.goalId} className="my-6">
+                            <li key={goalObj.id} className="my-6">
                                 {isEditing ? (
                                     <div className="flex gap-4">
                                         <input
