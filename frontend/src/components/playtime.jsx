@@ -25,7 +25,7 @@ const Playtime = ({ currentTime, totalTime, isLoading }) => {
       ) : (
         <div className="flex flex-col gap-8">
           <div className="text-2xl">
-            You have <b>{formatTimeString(leftHours, leftMinutes)}</b> remaining.
+            Your child has <b>{formatTimeString(leftHours, leftMinutes)}</b> remaining.
           </div>
           <div className="flex flex-between items-center gap-3">
             <Progress value={timePercentage} className="h-10 rounded-xl" />
@@ -36,7 +36,7 @@ const Playtime = ({ currentTime, totalTime, isLoading }) => {
           <div className="text-2xl w-[600px]">
             {leftTime > 0 ? (
               <>
-                You played{" "}
+                Your child played{" "}
                 <b> {formatTimeString(currentHours, currentMinutes)} </b>
                 out of <b> {formatTimeString(totalHours, totalMinutes)} </b>
               </>
