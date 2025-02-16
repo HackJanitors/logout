@@ -24,7 +24,7 @@ const items = [
         icon: UserCog,
     },
     {
-        title: "Wallet",
+        title: "Transactions",
         url: "wallet",
         icon: Wallet,
     }
