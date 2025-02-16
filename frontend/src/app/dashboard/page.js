@@ -8,9 +8,11 @@ import Playtime from "@/components/playtime";
 import Goals from "@/components/goals";
 import Achievement from "@/components/achievement";
 import AchievementList from "@/components/achievementList";
-import { getDashboardInformation } from "@/services/dashboard"; 
+import { getDashboardInformation } from "@/services/dashboard";
+import { runMockTransaction } from "@/services/transaction"
 import { getHoursAndMinutesFromHours, formatTimeString, getMinutesFromHours } from "@/lib/timeFormatter";
 import { socket } from "@/socket";
+import { Button } from "@/components/ui/button";
 
 export default function Home({ params }) {
 
@@ -20,48 +22,48 @@ export default function Home({ params }) {
     const [currentMinutes, setCurrentMinutes] = useState(0)
     const [totalMinutes, setTotalMinutes] = useState(0)
     const [achievementList, setAchievementList] = useState([{
-                imgSrc: "/flame.png",
-                title: "5 Day Streak",
-                desc: "Good Job!"
-            },
-            {
-                imgSrc: "/log-out.svg",
-                title: "Logged Off",
-                desc: "Clocked 0 hours of game time for a day"
-            },
-            {
-                imgSrc: "https://thumbs.dreamstime.com/b/happy-old-man-29232681.jpg",
-                className: "overflow-hidden",
-                title: "Philanthropist",
-                desc: "Donated a cumulative total of $100"
-            }])
+        imgSrc: "/flame.png",
+        title: "5 Day Streak",
+        desc: "Good Job!"
+    },
+    {
+        imgSrc: "/log-out.svg",
+        title: "Logged Off",
+        desc: "Clocked 0 hours of game time for a day"
+    },
+    {
+        imgSrc: "https://thumbs.dreamstime.com/b/happy-old-man-29232681.jpg",
+        className: "overflow-hidden",
+        title: "Older and Wiser",
+        desc: "Complete a total of 365 goals"
+    }])
     const [goalList, setGoalList] = useState([
-            {
-                desc: "Read 5 books",
-                id: 1,
-                done: true,
-            },
-            {
-                desc: "Practice soccer for 5 days",
-                id: 2,
-                done: false,
-            },
-            {
-                desc: "Draw a Portrait",
-                id: 3,
-                done: true,
-            },
-            {
-                desc: "Meditate",
-                id: 4,
-                done: false,
-            }
-        ])
+        {
+            desc: "Read 5 books",
+            id: 1,
+            done: true,
+        },
+        {
+            desc: "Practice soccer for 5 days",
+            id: 2,
+            done: false,
+        },
+        {
+            desc: "Draw a Portrait",
+            id: 3,
+            done: true,
+        },
+        {
+            desc: "Meditate",
+            id: 4,
+            done: false,
+        }
+    ])
 
     useEffect(() => {
         const getInfo = async () => {
             try {
-                const {child, hours} = await getDashboardInformation("67b09cbbdc0eb1383838f378")
+                const { child, hours } = await getDashboardInformation("67b09cbbdc0eb1383838f378")
                 setName(child?.username ? child.username : "")
                 setCurrentMinutes(getMinutesFromHours(hours))
                 setTotalMinutes(getMinutesFromHours(Number(child?.dailyRate)))
@@ -73,7 +75,7 @@ export default function Home({ params }) {
                 setIsLoading(false)
             }
         }
-        
+
         getInfo()
     }, [setName])
 
@@ -84,29 +86,50 @@ export default function Home({ params }) {
     })
 
     return (
+        isLoading ? 
+        (
+            <div className="m-10 font-extralight text-[rgba(0,0,0,0.5)] text-5xl">
+                Loading dashboard...
+            </div>
+        ) :
+        (
         <>
             <div className="ml-10 m-10">
-                <Namecard name={name} isLoading={isLoading}/>
-                
-                <div className="flex gap-20 mt-10">
-                    <div className="flex flex-col gap-14">
-                        <Playtime currentTime={currentMinutes} totalTime={totalMinutes} isLoading={isLoading} />
-                        <Goals name={name} 
-                        goalCallback={async (id) => {
-                            console.log(id);
-                        }} 
-                        saveCallback={async (list) => {
-                            console.log(list);
-                        }} />
+                <div className="flex flex-row gap-3 justify-between">
+                    <Namecard name={name} isLoading={isLoading} />
+                    <Button onClick={runMockTransaction}><div className="font-bold">Approve Transaction</div></Button>
+                </div>
+                <div className="flex flex-col gap-20 mt-10">
+                    <div className="flex justify-between w-full gap-14">
+                        <div className="w-3/5">
+                            <Playtime currentTime={currentMinutes} totalTime={totalMinutes} isLoading={isLoading} />
+
+                        </div>
+                        <div className="w-1/3">
+                            <Wallet isLoading={isLoading} currentEarnings={currentEarnings} name={name} />
+                        </div>
+
                     </div>
 
-                    <div className="flex flex-col gap-14">
-                        <Wallet currentEarnings={currentEarnings} />
+                    <div className="flex justify-between w-full gap-14">
+                        <div className="w-3/5 ">
+                            <Goals isLoading={isLoading} name={name}
+                                goalCallback={async (id) => {
+                                    console.log(id);
+                                }}
+                                saveCallback={async (list) => {
+                                    console.log(list);
+                                }} />
+                        </div>
 
-                        <AchievementList achievementList={achievementList} />
+                        <div className="w-1/3">
+                            <AchievementList achievementList={achievementList} />
+                        </div>
+
                     </div>
                 </div>
             </div>
         </>
+        )
     );
 }

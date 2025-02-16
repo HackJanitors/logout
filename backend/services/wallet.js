@@ -24,25 +24,25 @@ const keyId = process.env.KEY_ID
 const handleTransaction = async (rate, guardianWalletId, childWalletId, walletAddressUrl, keyId) => {
 
     const client = await createAuthenticatedClient({
-        // walletAddressUrl: "https://ilp.interledger-test.dev/logoff",
+        walletAddressUrl: "https://ilp.interledger-test.dev/logoff",
+        privateKey: "services/private.key",
+        keyId: "86cfd73c-8aca-48b8-8a7f-c3d4fa7680aa",
+        // walletAddressUrl: walletAddressUrl,
         // privateKey: "private.key",
-        // keyId: "86cfd73c-8aca-48b8-8a7f-c3d4fa7680aa",
-        walletAddressUrl: walletAddressUrl,
-        privateKey: "private.key",
-        keyId: keyId,
+        // keyId: keyId,
     });
 
     //input from frontend
     const childWalletAddress = await client.walletAddress.get({
-        //url: 'https://ilp.interledger-test.dev/martinhenz'
-        url: childWalletId
+        url: 'https://ilp.interledger-test.dev/martinhenz'
+        //url: childWalletId
     })
 
 
     //input from frontend
     const guardianWalletAddress = await client.walletAddress.get({
-        //url: 'https://ilp.interledger-test.dev/boydanderson'
-        url: guardianWalletId
+        url: 'https://ilp.interledger-test.dev/boydanderson'
+        //url: guardianWalletId
     })
 
 
@@ -75,8 +75,8 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId, walletAd
             incomingAmount: {
                 assetCode: childWalletAddress.assetCode,
                 assetScale: childWalletAddress.assetScale,
-                value: string(rate),      //set value
-                //value: "1000"
+                //value: string(rate),      //set value
+                value: "1000"
             },
             metadata: {
                 externalRef: '#INV2022-8363828',
