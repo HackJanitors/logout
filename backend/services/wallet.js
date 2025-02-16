@@ -188,8 +188,6 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId, walletAd
                     const waitTime = outgoingPaymentGrant.continue.wait * 1000;
                     console.log(`Too fast. Waiting ${outgoingPaymentGrant.continue.wait} seconds before retrying...`);
                     await new Promise(resolve => setTimeout(resolve, waitTime));
-                } else {
-                    throw error;
                 }
             }
             attempt++;
