@@ -11,12 +11,12 @@ import { getChildInfo, updateChildInfo } from "@/services/admin";
 export default function Admin() {
     const [plan, setPlan] = useState({
         dailyRate: "2",
-        cashAmount: "3",
+        cashAmount: "10",
         donationPercent: "1",
         weeklyBonus: false,
         weeklyAmount: "5",
         monthlyBonus: false,
-        monthlyAmount: "5",
+        monthlyAmount: "12",
         childWalletId: "https://ilp.interledger-test.dev/tommy"
     });
 

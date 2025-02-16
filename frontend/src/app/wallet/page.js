@@ -8,14 +8,14 @@ export default function Wallet() {
     const [walletAmount, setwalletAmount] = useState(5)
     const transactions = [
         {
-            date: "15/02/2025, 9:00 PM",
-            amount: "$5.00",
+            date: "14/02/2025, 9:00 PM",
+            amount: "$10.00",
             recipient: "Tommy (Daily Goal)",
             topUp: false,
         },
         {
-            date: "14/02/2025, 7:22 PM",
-            amount: "$5.00",
+            date: "13/02/2025, 7:22 PM",
+            amount: "$10.00",
             recipient: "Tommy (Daily Goal)",
             topUp: false,
         },
@@ -27,19 +27,19 @@ export default function Wallet() {
         },
         {
             date: "11/02/2025, 9:00 PM",
-            amount: "$5.00",
+            amount: "$10.00",
             recipient: "Tommy (Daily Goal)",
             topUp: false,
         },
         {
             date: "10/02/2025, 9:00 PM",
-            amount: "$5.00",
+            amount: "$10.00",
             recipient: "Tommy (Daily Goal)",
             topUp: false,
         },
         {
             date: "09/02/2025, 9:00 PM",
-            amount: "$5.00",
+            amount: "$10.00",
             recipient: "Tommy (Daily Goal)",
             topUp: false,
         },

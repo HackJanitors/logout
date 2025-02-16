@@ -19,7 +19,7 @@ export default function Home({ params }) {
 
     const [isLoading, setIsLoading] = useState(true)
     const [name, setName] = useState("")
-    const [currentEarnings, setCurrentEarnings] = useState(100)
+    const [currentEarnings, setCurrentEarnings] = useState(10)
     const [currentMinutes, setCurrentMinutes] = useState(0)
     const [totalMinutes, setTotalMinutes] = useState(0)
     const [achievementList, setAchievementList] = useState([{
