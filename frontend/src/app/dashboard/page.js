@@ -1,7 +1,8 @@
 "use client"
 
 import Namecard from "@/components/namecard";
-import React, { useEffect, useState, useAsyncFn } from "react";
+import React, { useEffect, useState } from "react";
+import { useAsyncFn } from "react-use";
 import { Progress } from "@/components/ui/progress"
 import Wallet from "@/components/wallet";
 import Playtime from "@/components/playtime";
