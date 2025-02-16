@@ -80,4 +80,15 @@ router.post('/mock', async (req, res) => {
     }
 });
 
+router.post('/mock-transaction', async (req, res) => {
+    io.emit(
+        'addWalletEnumeration', 20
+    )
+
+    res.status(201).json({
+        message: "Transaction completed",
+    });
+   
+});
+
 export default router
