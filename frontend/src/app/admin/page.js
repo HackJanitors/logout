@@ -17,7 +17,7 @@ export default function Admin() {
         weeklyAmount: "5",
         monthlyBonus: false,
         monthlyAmount: "5",
-        childWalletId: ""
+        childWalletId: "https://ilp.interledger-test.dev/tommy"
     });
 
     useEffect(() => {
@@ -70,7 +70,7 @@ export default function Admin() {
                     />
                 </div>
             </div>
-            <div id="daily" className=" grid grid-rows-4">
+            <div id="daily" className=" grid grid-rows-3">
                 <div className="grid grid-cols-[2fr,1fr]">
                     <Separator className="mt-10 mb-5" />
                 </div>
@@ -91,12 +91,12 @@ export default function Admin() {
                     </label>
                     <Input className="w-1/4" type="number" value={plan.cashAmount} onChange={(val) => updatePlan("cashAmount", val[0])} />
                 </div>
-                <div className="grid grid-cols-3">
+                {/* <div className="grid grid-cols-3">
                     <label>
                         Donation (%)
                     </label>
                     <Input className="w-1/4" type="number" value={plan.donationPercent} onChange={(val) => updatePlan("donationPercent", val[0])} />
-                </div>
+                </div> */}
             </div>
             <div id="weeklyMonthly" className="grid grid-rows-3">
                 <div className="grid grid-cols-[2fr,1fr]">
