@@ -7,8 +7,11 @@ import io from '../server.js'
 const router = express.Router()
 
 router.post('/mock', async (req, res) => {
-    const { guardianId, childId, guardianWalletId, childWalletId, riotId, goal, dailyRate, weeklyRate, monthlyRate, dailyPayment,
+    const { guardianId, guardianWalletId, childWalletId, riotId, goal, dailyRate, weeklyRate, monthlyRate, dailyPayment,
         weeklyPayment, monthlyPayment, walletAddressUrl, keyId } = req.body;
+
+
+    const childId = "67b05afd4c4d8e194819b8f0";
 
     const child = await Child.findById(childId);
     const today = new Date();
@@ -17,7 +20,7 @@ router.post('/mock', async (req, res) => {
     const newDay = new Day({
         childId,
         date: today,
-        hours,       //retrieve from riotAPI
+        hours: 1,
         dailyPayment: false,
         weeklyPayment: false,
         monthlyPayment: false
@@ -88,7 +91,7 @@ router.post('/mock-transaction', async (req, res) => {
     res.status(201).json({
         message: "Transaction completed",
     });
-   
+
 });
 
 export default router
