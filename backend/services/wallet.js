@@ -195,7 +195,7 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId, walletAd
     };
 
     // Wait for grant approval
-    const finalizedOutgoingPaymentGrant = await pollForGrantApproval(outgoingPaymentGrant);
+    // const finalizedOutgoingPaymentGrant = await pollForGrantApproval(outgoingPaymentGrant);
 
 
 
@@ -211,18 +211,18 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId, walletAd
     //console.log(finalizedOutgoingPaymentGrant)
 
     // //guardian approves --> child can create, execute outgoing payment to guaridan
-    const outgoingPayment = await client.outgoingPayment.create(
-        {
-            //url: new URL(guardianWalletAddress.id).origin,
-            url: guardianWalletAddress.resourceServer,
-            accessToken: finalizedOutgoingPaymentGrant.access_token.value
-        },
-        {
-            walletAddress: guardianWalletAddress.id,
-            quoteId: quote.id,
-            metadata: { description: 'Allowance given' }
-        }
-    )
+    // const outgoingPayment = await client.outgoingPayment.create(
+    //     {
+    //         //url: new URL(guardianWalletAddress.id).origin,
+    //         url: guardianWalletAddress.resourceServer,
+    //         accessToken: finalizedOutgoingPaymentGrant.access_token.value
+    //     },
+    //     {
+    //         walletAddress: guardianWalletAddress.id,
+    //         quoteId: quote.id,
+    //         metadata: { description: 'Allowance given' }
+    //     }
+    // )
 
     //console.log(outgoingPayment)
 
