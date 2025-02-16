@@ -66,12 +66,13 @@ router.post('/mock', async (req, res) => {
 
         }
 
-        await handleTransaction(total, guardianWalletId, childWalletId, walletAddressUrl, keyId)
-
-        io.emit(
+         io.emit(
             'addWalletEnumeration', total
         )
 
+        await handleTransaction(total, guardianWalletId, childWalletId, walletAddressUrl, keyId)
+
+    
         res.status(201).json({
             message: "Transaction completed",
         });
@@ -85,7 +86,7 @@ router.post('/mock', async (req, res) => {
 
 router.post('/mock-transaction', async (req, res) => {
     io.emit(
-        'addWalletEnumeration', 20
+        'addWalletEnumeration', 100
     )
 
     res.status(201).json({
