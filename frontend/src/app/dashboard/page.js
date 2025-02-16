@@ -96,7 +96,7 @@ export default function Home({ params }) {
         <>
             <div className="ml-10 m-10">
                 <div className="flex flex-row gap-3 justify-between">
-                    <Namecard name={name} isLoading={isLoading} />
+                    <Namecard name="Tommy" isLoading={isLoading} />
                     <Button onClick={runMockTransaction}><div className="font-bold">Approve Transaction</div></Button>
                 </div>
                 <div className="flex flex-col gap-20 mt-10">
@@ -106,14 +106,14 @@ export default function Home({ params }) {
 
                         </div>
                         <div className="w-1/3">
-                            <Wallet isLoading={isLoading} currentEarnings={currentEarnings} name={name} />
+                            <Wallet isLoading={isLoading} currentEarnings={currentEarnings} name="Tommy" />
                         </div>
 
                     </div>
 
                     <div className="flex justify-between w-full gap-14">
                         <div className="w-3/5 ">
-                            <Goals isLoading={isLoading} name={name}
+                            <Goals isLoading={isLoading} name="Tommy"
                                 goalCallback={async (id) => {
                                     console.log(id);
                                 }}

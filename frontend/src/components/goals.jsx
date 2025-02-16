@@ -19,7 +19,7 @@ const Goals = ({ isLoading, name, goalCallback, saveCallback }) => {
 
             <div className="bento p-10">
                 <div className="text-2xl mb-10">
-                    Instead of playing games, I will...
+                    Instead of playing games,
                 </div>
                 <GoalList goalCallback={goalCallback} saveCallback={saveCallback} />
             </div>
