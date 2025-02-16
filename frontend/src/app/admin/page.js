@@ -76,7 +76,7 @@ export default function Admin() {
                 </div>
                 <div className="grid grid-cols-3">
                     <label>
-                        Wallet Address
+                        Child Wallet Address
                     </label>
                     <Input type="walletAddress" placeholder="New Wallet Address" className="w-full" value={plan.childWalletId} onChange={(e) => {
                         const val = e.target.value;
