@@ -34,15 +34,15 @@ const handleTransaction = async (rate, guardianWalletId, childWalletId, walletAd
 
     //input from frontend
     const childWalletAddress = await client.walletAddress.get({
-        //url: 'https://ilp.interledger-test.dev/martinhenz'
-        url: childWalletId
+        url: 'https://ilp.interledger-test.dev/martinhenz'
+        //url: childWalletId
     })
 
 
     //input from frontend
     const guardianWalletAddress = await client.walletAddress.get({
-        //url: 'https://ilp.interledger-test.dev/boydanderson'
-        url: guardianWalletId
+        url: 'https://ilp.interledger-test.dev/boydanderson'
+        //url: guardianWalletId
     })
 
 
